@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		DE44A9562B70E2CB002EC78B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A9552B70E2CB002EC78B /* AppDelegate.swift */; };
 		DE44A9582B70E2CB002EC78B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A9572B70E2CB002EC78B /* SceneDelegate.swift */; };
-		DE44A95A2B70E2CB002EC78B /* CalenderPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A9592B70E2CB002EC78B /* CalenderPickerViewController.swift */; };
+		DE44A95A2B70E2CB002EC78B /* CalendarPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A9592B70E2CB002EC78B /* CalendarPickerViewController.swift */; };
 		DE44A95D2B70E2CB002EC78B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE44A95B2B70E2CB002EC78B /* Main.storyboard */; };
 		DE44A95F2B70E2CD002EC78B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE44A95E2B70E2CD002EC78B /* Assets.xcassets */; };
 		DE44A9622B70E2CD002EC78B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE44A9602B70E2CD002EC78B /* LaunchScreen.storyboard */; };
@@ -18,6 +18,8 @@
 		DE44A9792B70E2CD002EC78B /* DayCraftUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A9782B70E2CD002EC78B /* DayCraftUITestsLaunchTests.swift */; };
 		DE44A98A2B70E393002EC78B /* WeekDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A9892B70E393002EC78B /* WeekDayCollectionViewCell.swift */; };
 		DE44A98C2B70E3AC002EC78B /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A98B2B70E3AC002EC78B /* MonthCollectionViewCell.swift */; };
+		DE44A9912B70E51A002EC78B /* CalenderPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A9902B70E51A002EC78B /* CalenderPickerViewModel.swift */; };
+		DE44A9942B70E872002EC78B /* CalendarPicerCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A9932B70E872002EC78B /* CalendarPicerCells.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +43,7 @@
 		DE44A9522B70E2CB002EC78B /* DayCraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayCraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE44A9552B70E2CB002EC78B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE44A9572B70E2CB002EC78B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DE44A9592B70E2CB002EC78B /* CalenderPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderPickerViewController.swift; sourceTree = "<group>"; };
+		DE44A9592B70E2CB002EC78B /* CalendarPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPickerViewController.swift; sourceTree = "<group>"; };
 		DE44A95C2B70E2CB002EC78B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DE44A95E2B70E2CD002EC78B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE44A9612B70E2CD002EC78B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,6 +55,8 @@
 		DE44A9782B70E2CD002EC78B /* DayCraftUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCraftUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DE44A9892B70E393002EC78B /* WeekDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDayCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE44A98B2B70E3AC002EC78B /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
+		DE44A9902B70E51A002EC78B /* CalenderPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderPickerViewModel.swift; sourceTree = "<group>"; };
+		DE44A9932B70E872002EC78B /* CalendarPicerCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPicerCells.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +109,9 @@
 			children = (
 				DE44A9852B70E345002EC78B /* AppConfig */,
 				DE44A9862B70E367002EC78B /* Views */,
+				DE44A98F2B70E4F5002EC78B /* ViewModel */,
 				DE44A98D2B70E3BD002EC78B /* Controller */,
+				DE44A9922B70E840002EC78B /* Helpers */,
 				DE44A98E2B70E3CB002EC78B /* Resources */,
 				DE44A9632B70E2CD002EC78B /* Info.plist */,
 			);
@@ -168,7 +174,7 @@
 		DE44A98D2B70E3BD002EC78B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				DE44A9592B70E2CB002EC78B /* CalenderPickerViewController.swift */,
+				DE44A9592B70E2CB002EC78B /* CalendarPickerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -179,6 +185,22 @@
 				DE44A95E2B70E2CD002EC78B /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		DE44A98F2B70E4F5002EC78B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DE44A9902B70E51A002EC78B /* CalenderPickerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DE44A9922B70E840002EC78B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DE44A9932B70E872002EC78B /* CalendarPicerCells.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -312,10 +334,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE44A95A2B70E2CB002EC78B /* CalenderPickerViewController.swift in Sources */,
+				DE44A95A2B70E2CB002EC78B /* CalendarPickerViewController.swift in Sources */,
 				DE44A98C2B70E3AC002EC78B /* MonthCollectionViewCell.swift in Sources */,
 				DE44A9562B70E2CB002EC78B /* AppDelegate.swift in Sources */,
+				DE44A9942B70E872002EC78B /* CalendarPicerCells.swift in Sources */,
 				DE44A9582B70E2CB002EC78B /* SceneDelegate.swift in Sources */,
+				DE44A9912B70E51A002EC78B /* CalenderPickerViewModel.swift in Sources */,
 				DE44A98A2B70E393002EC78B /* WeekDayCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
