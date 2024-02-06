@@ -22,6 +22,16 @@ class CalenderPickerViewModel {
     private func getNumberOfSections() {
         numberOfSections.append(.monthNameCell)
         numberOfSections.append(.weekNameCell)
+        numberOfSections.append(.datesCell)
+    }
+
+    func getNumberOfItemsInSection(sectionType: CalendarPickerCells, month: Int, year: Int) -> Int {
+        switch sectionType {
+        case .monthNameCell, .weekNameCell:
+            return 1
+        case .datesCell:
+            return numberOfWeeksInMonth(month: month, year: year)
+        }
     }
     
     func generateDates(forMonth month: Int, year: Int) -> [String] {
@@ -55,6 +65,22 @@ class CalenderPickerViewModel {
         return dates
     }
     
+    /// Function to get the current month and the year
+    /// - Returns: a set with month and year in `Int`
+    func getCurrentMonthAndYear() -> (month: Int, year: Int) {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        let components = calendar.dateComponents([.year, .month], from: currentDate)
+        
+        guard let month = components.month, let year = components.year else {
+            // Return a default value or handle the error as needed
+            return (0, 0)
+        }
+        
+        return (month, year)
+    }
+    
     /// Function to format the date to `String` in `yyyy-MM-dd` format
     /// - Parameter date: date in `Date` format
     /// - Returns: corresponding date in String` in `yyyy-MM-dd` format
@@ -69,7 +95,7 @@ class CalenderPickerViewModel {
     ///   - month: month in `Int`
     ///   - year: year in `Int`
     /// - Returns: number of weeks in `Int`
-    func numberOfWeeksInMonth(month: Int, year: Int) -> Int {
+    private func numberOfWeeksInMonth(month: Int, year: Int) -> Int {
         let calendar = Calendar.current
         
         // Create a date component with the given month and year
@@ -151,8 +177,11 @@ class CalenderPickerViewModel {
                 return UICollectionViewCell()
             }
             return cell
-        default:
-            return UICollectionViewCell()
+        case .datesCell:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DatesCollectionViewCell", for: indexPath) as? DatesCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            return cell
         }
     }
 }

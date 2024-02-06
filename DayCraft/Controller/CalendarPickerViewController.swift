@@ -26,6 +26,7 @@ class CalendarPickerViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.register(MonthCollectionViewCell.self, forCellWithReuseIdentifier: "MonthCollectionViewCell")
         collectionView.register(WeekDayCollectionViewCell.self, forCellWithReuseIdentifier: "WeekDayCollectionViewCell")
+        collectionView.register(DatesCollectionViewCell.self, forCellWithReuseIdentifier: "DatesCollectionViewCell")
         collectionView.delegate = self
         collectionView.dataSource = self
         return collectionView
@@ -73,7 +74,8 @@ extension CalendarPickerViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItemsInSection
+        let current = viewModel.getCurrentMonthAndYear()
+        return viewModel.getNumberOfItemsInSection(sectionType: viewModel.numberOfSections[section], month: 3, year: current.year)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -91,7 +93,13 @@ extension CalendarPickerViewController: UICollectionViewDelegate {
 // MARK: - COLLECTION VIEW DELEGATE FLOW LAYOUT
 extension CalendarPickerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 30)
+        let sectionType = viewModel.numberOfSections[indexPath.section]
+        switch sectionType {
+        case .weekNameCell, .monthNameCell:
+            return CGSize(width: collectionView.frame.width, height: 30)
+        case .datesCell:
+            return CGSize(width: collectionView.frame.width, height: 50)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
