@@ -18,32 +18,22 @@ class DatesCollectionViewCell: UICollectionViewCell {
         stackView.distribution = .fillEqually
         return stackView
     }()
-    private let days = ["1", "2", "3", "4", "5", "6", "7"]
+    private let viewModel: CalendarPickerViewModel
     
     // MARK: - LIFE CYCLE
     override init(frame: CGRect) {
+        self.viewModel = CalendarPickerViewModel()
         super.init(frame: frame)
         setupUI()
-        setupWeekDays()
     }
     
     required init?(coder aDecoder: NSCoder) {
+        self.viewModel = CalendarPickerViewModel()
         super.init(coder: aDecoder)
     }
     
     override class func awakeFromNib() {
         super.awakeFromNib()
-    }
-    
-    private func setupWeekDays() {
-        for day in days {
-            let label = UILabel()
-            label.text = day
-            label.textAlignment = .center
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.heightAnchor.constraint(equalToConstant: 50).isActive = true
-            stackView.addArrangedSubview(label)
-        }
     }
     
     // MARK: - CONFIG
@@ -58,5 +48,38 @@ class DatesCollectionViewCell: UICollectionViewCell {
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             stackView.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    // MARK: - HELPERS
+    func setupData(currentWeek: Int, selectedMonth: Int, selectedYear: Int) {
+        let dates = viewModel.datesInWeek(week: currentWeek, month: selectedMonth, year: selectedYear)
+        setupWeekDays(dates: dates, selectedMonth: selectedMonth)
+    }
+    
+    /// Function to set up the weekly days
+    /// - Parameters:
+    ///   - dates: an array of date string in `yyyy-MM-dd` format
+    ///   - selectedMonth: selected month in `Int`
+    private func setupWeekDays(dates: [String], selectedMonth: Int) {
+        for date in dates {
+            let label = UILabel()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            if let date = dateFormatter.date(from: date) {
+                let dayComponent = Calendar.current.component(.day, from: date)
+                let monthComponent = Calendar.current.component(.month, from: date)
+                
+                if monthComponent == selectedMonth {
+                    label.text = String(dayComponent)
+                } else {
+                    label.text = ""
+                }
+            }
+            label.textAlignment = .center
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.heightAnchor.constraint(equalToConstant: 50).isActive = true
+            stackView.addArrangedSubview(label)
+        }
     }
 }

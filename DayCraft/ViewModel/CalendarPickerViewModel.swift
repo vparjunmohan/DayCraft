@@ -1,5 +1,5 @@
 //
-//  CalenderPickerViewModel.swift
+//  CalendarPickerViewModel.swift
 //  DayCraft
 //
 //  Created by Arjun Mohan on 05/02/24.
@@ -8,11 +8,38 @@
 import Foundation
 import UIKit
 
-class CalenderPickerViewModel {
+class CalendarPickerViewModel {
     // MARK: - PROPERTIES
     private (set) var numberOfSections: [CalendarPickerCells] = []
     private (set) var numberOfItemsInSection = 1
     var updateContainerHeightClosure: (() -> Void)?
+    var numberOfWeeks: Int = 0
+    var currentMonth: Int = 1
+    var currentYear: Int = 2024
+    var getSetNumberOfWeeksInMonth: Int {
+        get {
+            return numberOfWeeks
+        }
+        set(newvalue) {
+            numberOfWeeks = newvalue
+        }
+    }
+    var getSetCurrentMonth: Int {
+        get {
+            return currentMonth
+        }
+        set(newvalue) {
+            currentMonth = newvalue
+        }
+    }
+    var getSetCurrentYear: Int {
+        get {
+            return currentYear
+        }
+        set(newvalue) {
+            currentYear = newvalue
+        }
+    }
     
     // MARK: - LIFE CYCLE
     init() {
@@ -32,7 +59,10 @@ class CalenderPickerViewModel {
             return 1
         case .datesCell:
             updateContainerHeightClosure?()
-            return numberOfWeeksInMonth(month: month, year: year)
+            getSetCurrentYear = year
+            getSetCurrentMonth = month
+            getSetNumberOfWeeksInMonth = numberOfWeeksInMonth(month: month, year: year)
+            return numberOfWeeks
         }
     }
     
@@ -183,6 +213,7 @@ class CalenderPickerViewModel {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DatesCollectionViewCell", for: indexPath) as? DatesCollectionViewCell else {
                 return UICollectionViewCell()
             }
+            cell.setupData(currentWeek: indexPath.row + 1, selectedMonth: currentMonth, selectedYear: currentYear)
             return cell
         }
     }

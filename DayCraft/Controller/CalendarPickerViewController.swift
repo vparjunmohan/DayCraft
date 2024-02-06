@@ -31,17 +31,17 @@ class CalendarPickerViewController: UIViewController {
         collectionView.dataSource = self
         return collectionView
     }()
-    let viewModel: CalenderPickerViewModel
+    let viewModel: CalendarPickerViewModel
     private var containerViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - LIFE CYCLE
-    init(viewModel: CalenderPickerViewModel) {
+    init(viewModel: CalendarPickerViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
-        self.viewModel = CalenderPickerViewModel()
+        self.viewModel = CalendarPickerViewModel()
         super.init(coder: coder)
     }
     
