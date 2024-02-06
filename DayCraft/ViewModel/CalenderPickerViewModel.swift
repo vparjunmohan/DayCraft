@@ -12,6 +12,7 @@ class CalenderPickerViewModel {
     // MARK: - PROPERTIES
     private (set) var numberOfSections: [CalendarPickerCells] = []
     private (set) var numberOfItemsInSection = 1
+    var updateContainerHeightClosure: (() -> Void)?
     
     // MARK: - LIFE CYCLE
     init() {
@@ -30,6 +31,7 @@ class CalenderPickerViewModel {
         case .monthNameCell, .weekNameCell:
             return 1
         case .datesCell:
+            updateContainerHeightClosure?()
             return numberOfWeeksInMonth(month: month, year: year)
         }
     }

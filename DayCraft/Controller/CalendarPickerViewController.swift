@@ -32,6 +32,7 @@ class CalendarPickerViewController: UIViewController {
         return collectionView
     }()
     let viewModel: CalenderPickerViewModel
+    private var containerViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - LIFE CYCLE
     init(viewModel: CalenderPickerViewModel) {
@@ -47,23 +48,39 @@ class CalendarPickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
+        configBinding()
     }
     
     // MARK: - CONFIG
     private func configUI() {
         view.addSubview(containerView)
         containerView.addSubview(calendarPickerCollectionView)
+        containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: 360)
+        containerViewHeightConstraint.isActive = true
+        
         NSLayoutConstraint.activate([
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             containerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             containerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            containerView.heightAnchor.constraint(equalToConstant: 300),
             
             calendarPickerCollectionView.topAnchor.constraint(equalTo: containerView.topAnchor),
             calendarPickerCollectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             calendarPickerCollectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             calendarPickerCollectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
+    }
+    
+    private func configBinding() {
+        let current = viewModel.getCurrentMonthAndYear()
+        let numberOfWeeks = viewModel.getNumberOfItemsInSection(sectionType: .datesCell, month: current.month, year: current.year)
+        viewModel.updateContainerHeightClosure = { [weak self] in
+            guard let self else { return }
+            containerViewHeightConstraint.constant = CGFloat(numberOfWeeks * 50) + CGFloat(60)
+            // Animate if needed
+//            UIView.animate(withDuration: 2.0) {
+//                self.view.layoutIfNeeded()
+//            }
+        }
     }
 }
 
@@ -75,7 +92,7 @@ extension CalendarPickerViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let current = viewModel.getCurrentMonthAndYear()
-        return viewModel.getNumberOfItemsInSection(sectionType: viewModel.numberOfSections[section], month: 3, year: current.year)
+        return viewModel.getNumberOfItemsInSection(sectionType: viewModel.numberOfSections[section], month: current.month, year: current.year)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

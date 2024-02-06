@@ -18,7 +18,7 @@ class DatesCollectionViewCell: UICollectionViewCell {
         stackView.distribution = .fillEqually
         return stackView
     }()
-    private let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    private let days = ["1", "2", "3", "4", "5", "6", "7"]
     
     // MARK: - LIFE CYCLE
     override init(frame: CGRect) {
@@ -41,7 +41,6 @@ class DatesCollectionViewCell: UICollectionViewCell {
             label.text = day
             label.textAlignment = .center
             label.translatesAutoresizingMaskIntoConstraints = false
-//            label.widthAnchor.constraint(equalToConstant: 60).isActive = true
             label.heightAnchor.constraint(equalToConstant: 50).isActive = true
             stackView.addArrangedSubview(label)
         }
