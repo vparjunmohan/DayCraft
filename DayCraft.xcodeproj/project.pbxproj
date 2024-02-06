@@ -19,7 +19,7 @@
 		DE44A98A2B70E393002EC78B /* WeekDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A9892B70E393002EC78B /* WeekDayCollectionViewCell.swift */; };
 		DE44A98C2B70E3AC002EC78B /* MonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A98B2B70E3AC002EC78B /* MonthCollectionViewCell.swift */; };
 		DE44A9912B70E51A002EC78B /* CalenderPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A9902B70E51A002EC78B /* CalenderPickerViewModel.swift */; };
-		DE44A9942B70E872002EC78B /* CalendarPicerCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A9932B70E872002EC78B /* CalendarPicerCells.swift */; };
+		DE44A9942B70E872002EC78B /* CalendarPickerCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44A9932B70E872002EC78B /* CalendarPickerCells.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +56,7 @@
 		DE44A9892B70E393002EC78B /* WeekDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDayCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE44A98B2B70E3AC002EC78B /* MonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE44A9902B70E51A002EC78B /* CalenderPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderPickerViewModel.swift; sourceTree = "<group>"; };
-		DE44A9932B70E872002EC78B /* CalendarPicerCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPicerCells.swift; sourceTree = "<group>"; };
+		DE44A9932B70E872002EC78B /* CalendarPickerCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPickerCells.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,7 +198,7 @@
 		DE44A9922B70E840002EC78B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				DE44A9932B70E872002EC78B /* CalendarPicerCells.swift */,
+				DE44A9932B70E872002EC78B /* CalendarPickerCells.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -337,7 +337,7 @@
 				DE44A95A2B70E2CB002EC78B /* CalendarPickerViewController.swift in Sources */,
 				DE44A98C2B70E3AC002EC78B /* MonthCollectionViewCell.swift in Sources */,
 				DE44A9562B70E2CB002EC78B /* AppDelegate.swift in Sources */,
-				DE44A9942B70E872002EC78B /* CalendarPicerCells.swift in Sources */,
+				DE44A9942B70E872002EC78B /* CalendarPickerCells.swift in Sources */,
 				DE44A9582B70E2CB002EC78B /* SceneDelegate.swift in Sources */,
 				DE44A9912B70E51A002EC78B /* CalenderPickerViewModel.swift in Sources */,
 				DE44A98A2B70E393002EC78B /* WeekDayCollectionViewCell.swift in Sources */,

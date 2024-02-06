@@ -30,9 +30,6 @@ class CalendarPickerViewController: UIViewController {
         collectionView.dataSource = self
         return collectionView
     }()
-    let calendar = Calendar.current
-    var currentDate: Date!
-    var daysInMonth: [String] = []
     let viewModel: CalenderPickerViewModel
     
     // MARK: - LIFE CYCLE
@@ -49,8 +46,6 @@ class CalendarPickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
-        currentDate = Date()
-        setupDaysInMonth()
     }
     
     // MARK: - CONFIG
@@ -68,18 +63,6 @@ class CalendarPickerViewController: UIViewController {
             calendarPickerCollectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             calendarPickerCollectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
-    }
-    
-    // MARK: - HELPERS
-    private func setupDaysInMonth() {
-        // Get the first day of the month
-        var firstDayComponents = calendar.dateComponents([.year, .month], from: currentDate)
-        firstDayComponents.day = 1
-        let firstDayOfMonth = calendar.date(from: firstDayComponents)!
-        
-        // Get the range of days in the month
-        let range = calendar.range(of: .day, in: .month, for: firstDayOfMonth)!
-        daysInMonth = range.map { String($0) }
     }
 }
 
