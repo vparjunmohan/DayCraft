@@ -203,6 +203,7 @@ class CalendarPickerViewModel {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MonthCollectionViewCell", for: indexPath) as? MonthCollectionViewCell else {
                 return UICollectionViewCell()
             }
+            cell.setupCell(selectedMonth: currentMonth)
             return cell
         case .weekNameCell:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeekDayCollectionViewCell", for: indexPath) as? WeekDayCollectionViewCell else {
@@ -213,7 +214,7 @@ class CalendarPickerViewModel {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DatesCollectionViewCell", for: indexPath) as? DatesCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            cell.setupData(currentWeek: indexPath.row + 1, selectedMonth: currentMonth, selectedYear: currentYear)
+            cell.setupCell(currentWeek: indexPath.row + 1, selectedMonth: currentMonth, selectedYear: currentYear)
             return cell
         }
     }

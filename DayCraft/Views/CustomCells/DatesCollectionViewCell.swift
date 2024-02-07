@@ -51,7 +51,7 @@ class DatesCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - HELPERS
-    func setupData(currentWeek: Int, selectedMonth: Int, selectedYear: Int) {
+    func setupCell(currentWeek: Int, selectedMonth: Int, selectedYear: Int) {
         let dates = viewModel.datesInWeek(week: currentWeek, month: selectedMonth, year: selectedYear)
         setupWeekDays(dates: dates, selectedMonth: selectedMonth)
     }
