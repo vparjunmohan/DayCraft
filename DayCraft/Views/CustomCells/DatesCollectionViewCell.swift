@@ -36,6 +36,11 @@ class DatesCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        clearStackViewForReuse()
+    }
+    
     // MARK: - CONFIG
     private func setupUI() {
         backgroundColor = .clear
@@ -80,6 +85,16 @@ class DatesCollectionViewCell: UICollectionViewCell {
             label.translatesAutoresizingMaskIntoConstraints = false
             label.heightAnchor.constraint(equalToConstant: 50).isActive = true
             stackView.addArrangedSubview(label)
+        }
+    }
+    
+    /// Function to clear up the stack view for reuse
+    private func clearStackViewForReuse() {
+        let stackSubViews = stackView.subviews
+        for view in stackSubViews {
+            if let label = view as? UILabel {
+                label.removeFromSuperview()
+            }
         }
     }
 }

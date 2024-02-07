@@ -13,6 +13,7 @@ class CalendarPickerViewModel {
     private (set) var numberOfSections: [CalendarPickerCells] = []
     private (set) var numberOfItemsInSection = 1
     var updateContainerHeightClosure: (() -> Void)?
+    var reloadCollectionViewClosure: (() -> Void)?
     var numberOfWeeks: Int = 0
     var currentMonth: Int = 1
     var currentYear: Int = 2024
@@ -44,6 +45,9 @@ class CalendarPickerViewModel {
     // MARK: - LIFE CYCLE
     init() {
         getNumberOfSections()
+        getSetCurrentYear = getCurrentMonthAndYear().year
+        getSetCurrentMonth = getCurrentMonthAndYear().month
+        getSetNumberOfWeeksInMonth = numberOfWeeksInMonth(month: getSetCurrentMonth, year: getSetCurrentYear)
     }
     
     // MARK: - HELPERS
@@ -58,43 +62,12 @@ class CalendarPickerViewModel {
         case .monthNameCell, .weekNameCell:
             return 1
         case .datesCell:
-            updateContainerHeightClosure?()
             getSetCurrentYear = year
             getSetCurrentMonth = month
             getSetNumberOfWeeksInMonth = numberOfWeeksInMonth(month: month, year: year)
+            updateContainerHeightClosure?()
             return numberOfWeeks
         }
-    }
-    
-    func generateDates(forMonth month: Int, year: Int) -> [String] {
-        var dates: [String] = []
-        
-        // Create a date component with the given month and year
-        var dateComponents = DateComponents()
-        dateComponents.year = year
-        dateComponents.month = month
-        dateComponents.day = 1 // Set to the first day of the month
-        
-        // Get the first day of the month
-        guard let firstDayOfMonth = Calendar.current.date(from: dateComponents) else {
-            return dates
-        }
-        
-        // Calculate the range of days in the month
-        guard let monthRange = Calendar.current.range(of: .day, in: .month, for: firstDayOfMonth) else {
-            return dates
-        }
-        
-        // Enumerate through the range and add each formatted date to the array
-        for day in monthRange {
-            dateComponents.day = day
-            if let monthDay = Calendar.current.date(from: dateComponents) {
-                let formattedDate = formatDate(monthDay)
-                dates.append(formattedDate)
-            }
-        }
-        
-        return dates
     }
     
     /// Function to get the current month and the year
@@ -204,6 +177,7 @@ class CalendarPickerViewModel {
                 return UICollectionViewCell()
             }
             cell.setupCell(selectedMonth: currentMonth)
+            cell.delegate = self
             return cell
         case .weekNameCell:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeekDayCollectionViewCell", for: indexPath) as? WeekDayCollectionViewCell else {
@@ -216,6 +190,27 @@ class CalendarPickerViewModel {
             }
             cell.setupCell(currentWeek: indexPath.row + 1, selectedMonth: currentMonth, selectedYear: currentYear)
             return cell
+        }
+    }
+}
+
+// MARK: - MONTH COLLECTION VIEW CELL DELEGATE
+extension CalendarPickerViewModel: MonthCollectionViewCellDelegate {
+    /// Delegate method to display the previous month
+    func displayPreviousMonth() {
+        if getSetCurrentMonth > 1 {
+            getSetCurrentMonth -= 1
+            reloadCollectionViewClosure?()
+            updateContainerHeightClosure?()
+        }
+    }
+    
+    /// Delegate method to display the next month
+    func displayNextMonth() {
+        if getSetCurrentMonth < 12 {
+            getSetCurrentMonth += 1
+            reloadCollectionViewClosure?()
+            updateContainerHeightClosure?()
         }
     }
 }

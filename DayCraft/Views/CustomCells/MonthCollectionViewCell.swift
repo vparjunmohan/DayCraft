@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol MonthCollectionViewCellDelegate: AnyObject {
+    func displayPreviousMonth()
+    func displayNextMonth()
+}
+
 class MonthCollectionViewCell: UICollectionViewCell {
     // MARK: - PROPERTIES
     lazy var monthLabel: UILabel = {
@@ -23,6 +28,7 @@ class MonthCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        button.addTarget(self, action: #selector(previousMonthTapped(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -30,8 +36,10 @@ class MonthCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        button.addTarget(self, action: #selector(nextMonthTapped(_:)), for: .touchUpInside)
         return button
     }()
+    weak var delegate: MonthCollectionViewCellDelegate?
     
     // MARK: - LIFE CYCLE
     override init(frame: CGRect) {
@@ -74,6 +82,15 @@ class MonthCollectionViewCell: UICollectionViewCell {
             nextMonth.topAnchor.constraint(equalTo: contentView.topAnchor),
             nextMonth.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
+    }
+    
+    // MARK: - SELECTORS
+    @objc func previousMonthTapped(_ sender: UIButton) {
+        delegate?.displayPreviousMonth()
+    }
+    
+    @objc func nextMonthTapped(_ sender: UIButton) {
+        delegate?.displayNextMonth()
     }
     
     // MARK: - HELPERS

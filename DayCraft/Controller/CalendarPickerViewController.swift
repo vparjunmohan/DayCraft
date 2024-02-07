@@ -55,7 +55,7 @@ class CalendarPickerViewController: UIViewController {
     private func configUI() {
         view.addSubview(containerView)
         containerView.addSubview(calendarPickerCollectionView)
-        containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: 360)
+        containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: 310)
         containerViewHeightConstraint.isActive = true
         
         NSLayoutConstraint.activate([
@@ -71,15 +71,17 @@ class CalendarPickerViewController: UIViewController {
     }
     
     private func configBinding() {
-        let current = viewModel.getCurrentMonthAndYear()
-        let numberOfWeeks = viewModel.getNumberOfItemsInSection(sectionType: .datesCell, month: current.month, year: current.year)
         viewModel.updateContainerHeightClosure = { [weak self] in
             guard let self else { return }
-            containerViewHeightConstraint.constant = CGFloat(numberOfWeeks * 50) + CGFloat(60)
+            containerViewHeightConstraint.constant = CGFloat(viewModel.getSetNumberOfWeeksInMonth * 50) + CGFloat(60)
             // Animate if needed
-//            UIView.animate(withDuration: 2.0) {
-//                self.view.layoutIfNeeded()
-//            }
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
+        }
+        viewModel.reloadCollectionViewClosure = { [weak self] in
+            guard let self else { return }
+            self.calendarPickerCollectionView.reloadData()
         }
     }
 }
@@ -91,8 +93,7 @@ extension CalendarPickerViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let current = viewModel.getCurrentMonthAndYear()
-        return viewModel.getNumberOfItemsInSection(sectionType: viewModel.numberOfSections[section], month: current.month, year: current.year)
+        return viewModel.getNumberOfItemsInSection(sectionType: viewModel.numberOfSections[section], month: viewModel.currentMonth, year: viewModel.currentYear)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
