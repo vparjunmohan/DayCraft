@@ -192,6 +192,21 @@ class CalendarPickerViewModel {
             return cell
         }
     }
+    
+    /// Function to check if the date is current date
+    /// - Parameter dateString: date in` yyyy-MM-dd` format
+    /// - Returns: Returns `True` if it is current date or else return `False`
+    func isCurrentDate(dateString: String) -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if let inputDate = dateFormatter.date(from: dateString) {
+            let currentDate = Date()
+            // Compare the input date with the current date
+            return Calendar.current.isDate(inputDate, inSameDayAs: currentDate)
+        }
+        // Invalid date format
+        return false
+    }
 }
 
 // MARK: - MONTH COLLECTION VIEW CELL DELEGATE

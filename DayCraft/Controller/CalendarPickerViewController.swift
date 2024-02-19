@@ -12,7 +12,7 @@ class CalendarPickerViewController: UIViewController {
     lazy var containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .yellow
+        view.backgroundColor = .lightGray.withAlphaComponent(0.2)
         view.layer.cornerRadius = 10
         view.clipsToBounds = true
         return view

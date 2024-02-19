@@ -53,9 +53,6 @@ class WeekDayCollectionViewCell: UICollectionViewCell {
             label.text = day
             label.textColor = updateWeekdayColour(dayName: day)
             label.textAlignment = .center
-            //            label.backgroundColor = .red.withAlphaComponent(0.2)
-            //            label.layer.borderColor = UIColor.black.cgColor
-            //            label.layer.borderWidth = 1.0
             label.translatesAutoresizingMaskIntoConstraints = false
             label.widthAnchor.constraint(equalToConstant: 30).isActive = true
             label.heightAnchor.constraint(equalToConstant: 30).isActive = true

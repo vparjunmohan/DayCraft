@@ -12,7 +12,7 @@ class DatesCollectionViewCell: UICollectionViewCell {
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .green
+        stackView.backgroundColor = .clear
         stackView.axis = .horizontal
         stackView.spacing = 5
         stackView.distribution = .fillEqually
@@ -44,7 +44,7 @@ class DatesCollectionViewCell: UICollectionViewCell {
     // MARK: - CONFIG
     private func setupUI() {
         backgroundColor = .clear
-        contentView.backgroundColor = .red
+        contentView.backgroundColor = .clear
         contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -67,24 +67,32 @@ class DatesCollectionViewCell: UICollectionViewCell {
     ///   - selectedMonth: selected month in `Int`
     private func setupWeekDays(dates: [String], selectedMonth: Int) {
         for date in dates {
-            let label = UILabel()
+            let button = UIButton()
+            button.accessibilityIdentifier = date
+            button.addTarget(self, action: #selector(dateSelected(_ :)), for: .touchUpInside)
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
+            let isCurrentDate = viewModel.isCurrentDate(dateString: date)
             
             if let date = dateFormatter.date(from: date) {
                 let dayComponent = Calendar.current.component(.day, from: date)
                 let monthComponent = Calendar.current.component(.month, from: date)
                 
                 if monthComponent == selectedMonth {
-                    label.text = String(dayComponent)
+                    button.setTitle(String(dayComponent), for: .normal)
                 } else {
-                    label.text = ""
+                    button.setTitle("", for: .normal)
                 }
             }
-            label.textAlignment = .center
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.heightAnchor.constraint(equalToConstant: 50).isActive = true
-            stackView.addArrangedSubview(label)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+            button.setTitleColor(.black, for: .normal)
+            if isCurrentDate {
+                button.backgroundColor = .blue
+                button.setTitleColor(.white, for: .normal)
+                button.layer.cornerRadius = 25
+            }
+            stackView.addArrangedSubview(button)
         }
     }
     
@@ -92,9 +100,14 @@ class DatesCollectionViewCell: UICollectionViewCell {
     private func clearStackViewForReuse() {
         let stackSubViews = stackView.subviews
         for view in stackSubViews {
-            if let label = view as? UILabel {
-                label.removeFromSuperview()
+            if let button = view as? UIButton {
+                button.removeFromSuperview()
             }
         }
+    }
+
+    // MARK: - SELECTORS
+    @objc private func dateSelected(_ sender: UIButton) {
+        print("selected date: \(sender.accessibilityIdentifier)")
     }
 }
